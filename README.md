@@ -1,246 +1,171 @@
-# Self-hosted AI starter kit (incl. Docling)
+# معرفی Self-hosted AI Starter Kit (شامل Docling)
+## راهنمای مرحله به مرحله با معرفی رابط‌های وب
+
+## مرحله 1: مقدمه
+سلام به همه دوستان،
+امروز می‌خواهم شما را با "Self-hosted AI Starter Kit" آشنا کنم - یک راه‌حل کامل برای راه‌اندازی محیط هوش مصنوعی محلی با چند کلیک ساده.
+
+## مرحله 2: معرفی پروژه
+"Self-hosted AI Starter Kit" یک قالب Docker Compose متن‌باز است که توسط تیم theaiautomators نگهداری می‌شود. این پروژه به شما امکان می‌دهد یک محیط کامل هوش مصنوعی را روی سیستم خود راه‌اندازی کنید، بدون نیاز به سرویس‌های ابری گران‌قیمت.
+
+## مرحله 3: اجزای اصلی
+این مجموعه از چندین سرویس قدرتمند تشکیل شده است:
+
+1. **n8n**: پلتفرم اتوماسیون جریان کار با قابلیت‌های هوش مصنوعی
+2. **Ollama**: موتور اجرای مدل‌های زبانی بزرگ (LLM) به صورت محلی
+3. **Qdrant**: پایگاه داده برداری برای ذخیره و جستجوی داده‌های متنی
+4. **PostgreSQL**: پایگاه داده قدرتمند برای ذخیره‌سازی داده‌ها
+5. **Docling**: سرویس OCR و تجزیه اسناد
+6. **سرور فایل استاتیک**: برای دسترسی به فایل‌های اشتراکی
+
+## مرحله 4: نصب و راه‌اندازی
+نصب این مجموعه بسیار ساده است:
+
+1. ابتدا مخزن را کلون کنید:
+   ```bash
+   git clone https://github.com/theaiautomators/self-hosted-ai-starter-kit.git
+   cd self-hosted-ai-starter-kit
+   ```
+
+2. فایل `.env.example` را به `.env` کپی کنید:
+   ```bash
+   cp .env.example .env
+   ```
+
+3. بسته به سخت‌افزار خود، یکی از دستورات زیر را اجرا کنید:
+   - برای کاربران Nvidia GPU:
+     ```bash
+     docker compose --profile gpu-nvidia up
+     ```
+   - برای کاربران AMD GPU:
+     ```bash
+     docker compose --profile gpu-amd up
+     ```
+   - برای کاربران Mac یا سیستم‌های بدون GPU:
+     ```bash
+     docker compose --profile cpu up
+     ```
 
-**Self-hosted AI Starter Kit** is an open-source Docker Compose template designed to swiftly initialize a comprehensive local AI and low-code development environment.
+## مرحله 5: معرفی رابط وب n8n
+پس از راه‌اندازی، می‌توانید به رابط وب n8n در آدرس زیر دسترسی پیدا کنید:
+**http://localhost:5678**
+
+[اینجا تصویری از رابط کاربری n8n را نمایش دهید]
+
+در این رابط می‌توانید:
+- گردش‌کارهای هوش مصنوعی را ایجاد و ویرایش کنید
+- از بیش از 400 ادغام مختلف استفاده کنید
+- به نودهای پیشرفته هوش مصنوعی مانند AI Agent، Text Classifier و Information Extractor دسترسی داشته باشید
+
+## مرحله 6: معرفی گردش کار نمونه
+مجموعه شامل یک گردش کار نمونه است که می‌توانید با کلیک بر روی لینک زیر به آن دسترسی پیدا کنید:
+**http://localhost:5678/workflow/srOnR8PAY3u4RSwb**
+
+[اینجا تصویری از گردش کار نمونه را نمایش دهید]
 
-> [NOTE]
-> This is a fork maintained by [theaiautomators](https://github.com/theaiautomators).
-> Original repository: [n8n-io/self-hosted-ai-starter-kit](https://github.com/n8n-io/self-hosted-ai-starter-kit)
+این گردش کار شامل:
+- یک نود Chat Trigger برای شروع مکالمه
+- یک Basic LLM Chain برای پردازش پیام‌ها
+- یک Ollama Chat Model که از مدل llama3.2 استفاده می‌کند
+
+برای شروع چت، روی دکمه "Chat" در پایین صفحه کلیک کنید.
 
-![n8n.io - Screenshot](https://raw.githubusercontent.com/n8n-io/self-hosted-ai-starter-kit/main/assets/n8n-demo.gif)
+## مرحله 7: معرفی رابط وب Docling
+Docling یک سرویس OCR و تجزیه اسناد است که می‌توانید از طریق آدرس زیر به آن دسترسی پیدا کنید:
+**http://localhost:5001**
 
-Curated by <https://github.com/n8n-io>, it combines the self-hosted n8n
-platform with a curated list of compatible AI products and components to
-quickly get started with building self-hosted AI workflows.
+[اینجا تصویری از رابط کاربری Docling را نمایش دهید]
 
-> [!TIP]
-> [Read the announcement](https://blog.n8n.io/self-hosted-ai/)
+با استفاده از Docling می‌توانید:
+- اسناد را اسکن و متن آن‌ها را استخراج کنید
+- داده‌های ساختاریافته را از اسناد استخراج کنید
+- تصاویر را پردازش و تحلیل کنید
 
-### What’s included
+## مرحله 8: معرفی رابط وب Qdrant
+Qdrant یک پایگاه داده برداری است که می‌توانید از طریق آدرس زیر به رابط وب آن دسترسی پیدا کنید:
+**http://localhost:6333/dashboard**
 
-✅ [**Self-hosted n8n**](https://n8n.io/) - Low-code platform with over 400
-integrations and advanced AI components
+[اینجا تصویری از رابط کاربری Qdrant را نمایش دهید]
 
-✅ [**Ollama**](https://ollama.com/) - Cross-platform LLM platform to install
-and run the latest local LLMs
+با استفاده از Qdrant می‌توانید:
+- مجموعه‌های برداری ایجاد کنید
+- جستجوی معنایی انجام دهید
+- داده‌های متنی را به صورت کارآمد ذخیره و بازیابی کنید
 
-✅ [**Qdrant**](https://qdrant.tech/) - Open-source, high performance vector
-store with an comprehensive API
+## مرحله 9: معرفی سرور فایل استاتیک
+سرور فایل استاتیک در آدرس زیر در دسترس است:
+**http://localhost:8080**
 
-✅ [**PostgreSQL**](https://www.postgresql.org/) -  Workhorse of the Data
-Engineering world, handles large amounts of data safely.
+[اینجا تصویری از رابط سرور فایل را نمایش دهید]
 
-✅ [**Docling**](https://www.docling.ai/) - OCR and document parsing service for extracting structured data from documents
+این سرور به شما امکان می‌دهد:
+- به فایل‌های اشتراکی دسترسی پیدا کنید
+- تصاویر استخراج شده توسط Docling را مشاهده کنید
+- فایل‌های مورد نیاز برای گردش‌کارهای خود را ذخیره کنید
 
-✅ **Static File Server** - Nginx-based file server that serves the shared folder, accessible at http://localhost:8080
+## مرحله 10: ایجاد یک گردش کار هوش مصنوعی ساده
+حالا بیایید یک گردش کار ساده در n8n ایجاد کنیم:
 
-### What you can build
+1. به رابط n8n بروید و روی "Create new workflow" کلیک کنید
+2. یک نود "Chat Trigger" به صفحه اضافه کنید
+3. یک نود "Ollama Chat Model" اضافه کنید و آن را به مدل llama3.2 پیکربندی کنید
+4. یک نود "Basic LLM Chain" اضافه کنید و آن را به دو نود دیگر متصل کنید
+5. گردش کار را ذخیره کنید و روی دکمه "Chat" کلیک کنید تا با مدل هوش مصنوعی گفتگو کنید
 
-⭐️ **AI Agents** for scheduling appointments
+[اینجا تصویری از مراحل ایجاد گردش کار را نمایش دهید]
 
-⭐️ **Summarize Company PDFs** securely without data leaks
+## مرحله 11: کار با اسناد در Docling
+حالا بیایید نحوه استفاده از Docling برای پردازش اسناد را بررسی کنیم:
 
-⭐️ **Smarter Slack Bots** for enhanced company communications and IT operations
+1. به رابط Docling در http://localhost:5001 بروید
+2. روی "Upload" کلیک کنید و یک سند PDF یا تصویر آپلود کنید
+3. Docling به طور خودکار OCR را انجام می‌دهد و متن را استخراج می‌کند
+4. می‌توانید نتایج استخراج شده را در n8n استفاده کنید
 
-⭐️ **Private Financial Document Analysis** at minimal cost
+[اینجا تصویری از مراحل کار با Docling را نمایش دهید]
 
-## Installation
+## مرحله 12: ادغام Docling با n8n
+برای ادغام Docling با n8n:
 
-### Cloning the Repository
+1. در n8n، یک گردش کار جدید ایجاد کنید
+2. یک نود "HTTP Request" اضافه کنید
+3. آدرس را به http://docling:5001/api/v1/process تنظیم کنید
+4. یک فایل را به عنوان ورودی ارسال کنید
+5. نتایج پردازش شده را در گردش کار خود استفاده کنید
 
-```bash
-git clone https://github.com/theaiautomators/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
-cp .env.example .env # you should update secrets and passwords inside
-```
+[اینجا تصویری از مراحل ادغام را نمایش دهید]
 
-### Running n8n using Docker Compose
+## مرحله 13: نمونه‌های کاربردی
+با استفاده از این مجموعه می‌توانید:
 
-#### For Nvidia GPU users
+1. **دستیار پاسخگویی به اسناد**: یک سیستم که اسناد را اسکن می‌کند و به سوالات در مورد محتوای آن‌ها پاسخ می‌دهد
+2. **استخراج خودکار فاکتورها**: سیستمی که اطلاعات مهم را از فاکتورها استخراج و در پایگاه داده ذخیره می‌کند
+3. **چت‌بات دانش سازمانی**: یک چت‌بات که می‌تواند اسناد داخلی شرکت را بخواند و به سوالات کارکنان پاسخ دهد
+4. **تحلیل اسناد مالی**: سیستمی که اسناد مالی را تحلیل و خلاصه می‌کند
 
-```bash
-git clone https://github.com/theaiautomators/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
-cp .env.example .env # you should update secrets and passwords inside
-docker compose --profile gpu-nvidia up
-```
+## مرحله 14: مزایای استفاده از Self-hosted AI Starter Kit
 
-> [!NOTE]
-> If you have not used your Nvidia GPU with Docker before, please follow the
-> [Ollama Docker instructions](https://github.com/ollama/ollama/blob/main/docs/docker.md).
+1. **حریم خصوصی**: تمام داده‌ها روی سیستم شما باقی می‌مانند
+2. **کنترل کامل**: شما مالک تمام زیرساخت‌ها هستید
+3. **مقرون به صرفه**: بدون هزینه‌های اشتراک ماهانه
+4. **انعطاف‌پذیری**: قابلیت سفارشی‌سازی برای نیازهای خاص
+5. **یادگیری**: محیط عالی برای یادگیری هوش مصنوعی و اتوماسیون
 
-### For AMD GPU users on Linux
+## مرحله 15: منابع بیشتر
+برای یادگیری بیشتر، می‌توانید به منابع زیر مراجعه کنید:
 
-```bash
-git clone https://github.com/theaiautomators/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
-cp .env.example .env # you should update secrets and passwords inside
-docker compose --profile gpu-amd up
-```
+- [آموزش: ساخت یک گردش کار هوش مصنوعی در n8n](https://docs.n8n.io/advanced-ai/intro-tutorial/)
+- [مفاهیم Langchain در n8n](https://docs.n8n.io/advanced-ai/langchain/langchain-n8n/)
+- [گالری قالب‌های هوش مصنوعی n8n](https://n8n.io/workflows/categories/ai/)
 
-#### For Mac / Apple Silicon users
+## مرحله 16: جمع‌بندی
+"Self-hosted AI Starter Kit" یک راه‌حل قدرتمند و انعطاف‌پذیر برای راه‌اندازی محیط هوش مصنوعی محلی است. با استفاده از این مجموعه، می‌توانید:
 
-If you’re using a Mac with an M1 or newer processor, you can't expose your GPU
-to the Docker instance, unfortunately. There are two options in this case:
+- گردش‌کارهای هوش مصنوعی پیچیده ایجاد کنید
+- از مدل‌های زبانی بزرگ به صورت محلی استفاده کنید
+- اسناد را پردازش و تحلیل کنید
+- داده‌های متنی را به صورت کارآمد ذخیره و بازیابی کنید
 
-1. Run the starter kit fully on CPU, like in the section "For everyone else"
-   below
-2. Run Ollama on your Mac for faster inference, and connect to that from the
-   n8n instance
+همه این‌ها بدون نیاز به سرویس‌های ابری گران‌قیمت و با حفظ کامل حریم خصوصی داده‌های شما.
 
-If you want to run Ollama on your mac, check the
-[Ollama homepage](https://ollama.com/)
-for installation instructions, and run the starter kit as follows:
-
-```bash
-git clone https://github.com/theaiautomators/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
-cp .env.example .env # you should update secrets and passwords inside
-docker compose --profile cpu up
-```
-
-> [!NOTE]
-> The `--profile cpu` flag is required to start Docling. Without it, only the core services (n8n, PostgreSQL, Qdrant) will start.
-
-##### For Mac users running OLLAMA locally
-
-If you're running OLLAMA locally on your Mac (not in Docker), you need to modify the OLLAMA_HOST environment variable
-
-1. Set OLLAMA_HOST to `host.docker.internal:11434` in your .env file. 
-2. Additionally, after you see "Editor is now accessible via: <http://localhost:5678/>":
-
-    1. Head to <http://localhost:5678/home/credentials>
-    2. Click on "Local Ollama service"
-    3. Change the base URL to "http://host.docker.internal:11434/"
-
-#### For everyone else
-
-```bash
-git clone https://github.com/theaiautomators/self-hosted-ai-starter-kit.git
-cd self-hosted-ai-starter-kit
-cp .env.example .env # you should update secrets and passwords inside
-docker compose --profile cpu up
-```
-
-## ⚡️ Quick start and usage
-
-The core of the Self-hosted AI Starter Kit is a Docker Compose file, pre-configured with network and storage settings, minimizing the need for additional installations.
-After completing the installation steps above, simply follow the steps below to get started.
-
-1. Open <http://localhost:5678/> in your browser to set up n8n. You’ll only
-   have to do this once.
-2. Open the included workflow:
-   <http://localhost:5678/workflow/srOnR8PAY3u4RSwb>
-3. Click the **Chat** button at the bottom of the canvas, to start running the workflow.
-4. If this is the first time you’re running the workflow, you may need to wait
-   until Ollama finishes downloading Llama3.2. You can inspect the docker
-   console logs to check on the progress.
-
-To open n8n at any time, visit <http://localhost:5678/> in your browser.
-
-With your n8n instance, you’ll have access to over 400 integrations and a
-suite of basic and advanced AI nodes such as
-[AI Agent](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.agent/),
-[Text classifier](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.text-classifier/),
-and [Information Extractor](https://docs.n8n.io/integrations/builtin/cluster-nodes/root-nodes/n8n-nodes-langchain.information-extractor/)
-nodes. To keep everything local, just remember to use the Ollama node for your
-language model and Qdrant as your vector store.
-
-> [!NOTE]
-> This starter kit is designed to help you get started with self-hosted AI
-> workflows. While it’s not fully optimized for production environments, it
-> combines robust components that work well together for proof-of-concept
-> projects. You can customize it to meet your specific needs
-
-## Upgrading
-
-* ### For Nvidia GPU setups:
-
-```bash
-docker compose --profile gpu-nvidia pull
-docker compose create && docker compose --profile gpu-nvidia up
-```
-
-* ### For Mac / Apple Silicon users
-
-```bash
-docker compose --profile cpu pull
-docker compose create && docker compose --profile cpu up
-```
-
-* ### For Non-GPU setups:
-
-```bash
-docker compose --profile cpu pull
-docker compose create && docker compose --profile cpu up
-```
-
-## 👓 Recommended reading
-
-n8n is full of useful content for getting started quickly with its AI concepts
-and nodes. If you run into an issue, go to [support](#support).
-
-- [AI agents for developers: from theory to practice with n8n](https://blog.n8n.io/ai-agents/)
-- [Tutorial: Build an AI workflow in n8n](https://docs.n8n.io/advanced-ai/intro-tutorial/)
-- [Langchain Concepts in n8n](https://docs.n8n.io/advanced-ai/langchain/langchain-n8n/)
-- [Demonstration of key differences between agents and chains](https://docs.n8n.io/advanced-ai/examples/agent-chain-comparison/)
-- [What are vector databases?](https://docs.n8n.io/advanced-ai/examples/understand-vector-databases/)
-
-## 🎥 Video walkthrough
-
-- [Installing and using Local AI for n8n](https://www.youtube.com/watch?v=xz_X2N-hPg0)
-
-## 🛍️ More AI templates
-
-For more AI workflow ideas, visit the [**official n8n AI template
-gallery**](https://n8n.io/workflows/categories/ai/). From each workflow,
-select the **Use workflow** button to automatically import the workflow into
-your local n8n instance.
-
-### Learn AI key concepts
-
-- [AI Agent Chat](https://n8n.io/workflows/1954-ai-agent-chat/)
-- [AI chat with any data source (using the n8n workflow too)](https://n8n.io/workflows/2026-ai-chat-with-any-data-source-using-the-n8n-workflow-tool/)
-- [Chat with OpenAI Assistant (by adding a memory)](https://n8n.io/workflows/2098-chat-with-openai-assistant-by-adding-a-memory/)
-- [Use an open-source LLM (via Hugging Face)](https://n8n.io/workflows/1980-use-an-open-source-llm-via-huggingface/)
-- [Chat with PDF docs using AI (quoting sources)](https://n8n.io/workflows/2165-chat-with-pdf-docs-using-ai-quoting-sources/)
-- [AI agent that can scrape webpages](https://n8n.io/workflows/2006-ai-agent-that-can-scrape-webpages/)
-
-### Local AI templates
-
-- [Tax Code Assistant](https://n8n.io/workflows/2341-build-a-tax-code-assistant-with-qdrant-mistralai-and-openai/)
-- [Breakdown Documents into Study Notes with MistralAI and Qdrant](https://n8n.io/workflows/2339-breakdown-documents-into-study-notes-using-templating-mistralai-and-qdrant/)
-- [Financial Documents Assistant using Qdrant and](https://n8n.io/workflows/2335-build-a-financial-documents-assistant-using-qdrant-and-mistralai/) [Mistral.ai](http://mistral.ai/)
-- [Recipe Recommendations with Qdrant and Mistral](https://n8n.io/workflows/2333-recipe-recommendations-with-qdrant-and-mistral/)
-
-## Tips & tricks
-
-### Accessing local files
-
-The self-hosted AI starter kit will create a shared folder (by default,
-located in the same directory) which is mounted to the n8n container and
-allows n8n to access files on disk. This folder within the n8n container is
-located at `/data/shared` -- this is the path you’ll need to use in nodes that
-interact with the local filesystem.
-
-**Nodes that interact with the local filesystem**
-
-- [Read/Write Files from Disk](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.filesreadwrite/)
-- [Local File Trigger](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.localfiletrigger/)
-- [Execute Command](https://docs.n8n.io/integrations/builtin/core-nodes/n8n-nodes-base.executecommand/)
-
-## 📜 License
-
-This project is licensed under the Apache License 2.0 - see the
-[LICENSE](LICENSE) file for details.
-
-## 💬 Support
-
-Join the conversation in the [n8n Forum](https://community.n8n.io/), where you
-can:
-
-- **Share Your Work**: Show off what you’ve built with n8n and inspire others
-  in the community.
-- **Ask Questions**: Whether you’re just getting started or you’re a seasoned
-  pro, the community and our team are ready to support with any challenges.
-- **Propose Ideas**: Have an idea for a feature or improvement? Let us know!
-  We’re always eager to hear what you’d like to see next.
+از توجه شما متشکرم. آیا سوالی دارید؟
